@@ -280,7 +280,7 @@ set_param_value('TTHETAHW',TTHETAHW)
 
 PPHI_C = 0; % This is the fraction of natural consumption required to make agent indifferent.
 @#if subsidy == 1
-    TAUH_P = 1/(EPS-1);
+    TAUH_P = GGAMMA*(EPS/(EPS-1)) - 1;
     TAUH_W = 1/(EPSW-1);
 @#else
     TAUH_P = 0;
@@ -590,12 +590,13 @@ ycyc = rho_yc * ycyc(-1) + eps_yc* STD_yc;
     
     itit_f = rtrt_f;
     pitpit_f = 1;
-    thth_f = EPS/(EPS-1) * mcmc_f; 
+    thth_f = EPS/(EPS-1) * mcmc_f * (1/(1+TAUH_P)); 
+    %thth_f = 1; 
     ztzt_f = 1; 
     qtqt_f = stst_f * pistar;
     totot_f = qtqt_f/thth_f;
     ctct_f^(-GGAMMAC) = BBETA*(demshock(+1)/demshock)*(1 + itit_f)* ((ctct_f(+1)^(-GGAMMAC))/pitpit_f(+1));
-    ctct_f^GGAMMAC * ltlt_f^CCHI * (EPSW/(EPSW-1)) * PPSI = wtwt_f;
+    ctct_f^GGAMMAC * ltlt_f^CCHI * (EPSW/(EPSW-1))*(1/(1+TAUH_W))* PPSI = wtwt_f;
     chch_f = GGAMMA * (thth_f)^(-EPSH) * ctct_f;
     cfcf_f = (1-GGAMMA) * (qtqt_f)^(-EPSH) * ctct_f;
     xtxt_f = (1-GGAMMAST) * (thth_f/qtqt_f)^(-EPSF) * cstcst_f;
@@ -637,24 +638,28 @@ steady_state_model;
 
     vtvt = 1;
     bcsbcs = 0;
-    mcmc = (EPS-1)/EPS;
+    %mcmc = (EPS-1)/EPS;
 @#if logutility==1
-    ldld = (((EPSW-1)/EPSW)*(1+TAUH_W)*(1/PPSI)*mcmc)^(1/(GGAMMAC+CCHI));
+    %ldld = (((EPSW-1)/EPSW)*(1+TAUH_W)*(1/PPSI)*mcmc)^(1/(GGAMMAC+CCHI));
+    ldld = (GGAMMA)^(1/(1+CCHI));
+    wtwt = (GGAMMA)^((GGAMMAC+CCHI)/(1+CCHI));
 @#else
     ldld = (((EPSW-1)/EPSW)*(1+TAUH_W)*(1/PPSI)*mcmc)^(1/(GGAMMAC+CCHI));
 @#endif
-
+    mcmc = wtwt;
     ycyc = 0;
     ghgh = 0;
     
     yhyh = ldld;
     ctct = ldld;
-    wtwt = (EPSW/(EPSW-1))*(1/(1+TAUH_W))*PPSI*ldld^(CCHI+GGAMMAC);
+    %wtwt = (EPSW/(EPSW-1))*(1/(1+TAUH_W))*PPSI*ldld^(CCHI+GGAMMAC);
     ltlt = ldld;
     h1h1 = (PPSI*wtwt^(EPSW*(1+CCHI))*ldld^(1+CCHI))/(1-BBETA*TTHETAHW);
     h2h2 = (ldld*wtwt^(EPSW)*ctct^(-GGAMMAC))/(1-BBETA*TTHETAHW);
     wrwr=wtwt;
-    thth = EPS/(EPS-1)*mcmc;
+    %thth = EPS/(EPS-1)*mcmc;  cambio
+    tftf = 1;
+    thth = mcmc*(EPS/(EPS-1))*(1/(1+TAUH_P));
     rtrt = 1/BBETA-1;
     itit=rtrt;
     rstrst = 1/BBETA-1;
@@ -666,13 +671,13 @@ steady_state_model;
     cfcf = (1-GGAMMA)*ldld;
     xtxt = (1-GGAMMAST)*ldld;
     cstcst = ldld;
-    rstrst = 1/BBETA-1;
+    %rstrst = 1/BBETA-1;
     atat = 1;
     qtqt = 1;
     totot = qtqt/thth;
     dep = 1;
     stst = 1;
-    tftf = 1;
+    
     cca = 0;
     nxnx = 0;
     nstnst = 0;
@@ -692,16 +697,18 @@ steady_state_model;
     demshock = 1;
  %/////////////////////////////// FLEXIBLE STEADY STATE //////////////////////////////////////
  @#if Xgap == 1
-    mcmc_f = (EPS-1)/EPS; %(1-TAUH)*wtwt_f
+    %mcmc_f = (EPS-1)/EPS; %(1-TAUH)*wtwt_f
     @#if logutility==1
-        ltlt_f = (((EPSW-1)/EPSW)*(1+TAUH_W)*(1/PPSI)*mcmc)^(1/(GGAMMAC+CCHI));
-        wtwt_f = (EPSW/(EPSW-1))*(1/(1+TAUH_W))*PPSI*ldld^(CCHI+GGAMMAC);
+        ltlt_f = (GGAMMA)^(1/(1+CCHI));
+        wtwt_f = (GGAMMA)^((GGAMMAC+CCHI)/(1+CCHI));
     @#else
         ltlt_f = 1;
         wtwt_f = 1;
     @#endif
+        mcmc_f = wtwt_f;
         bcsbcs_f = 0;
-        thth_f = EPS/(EPS-1)*mcmc_f;
+        thth_f = EPS/(EPS-1)*mcmc_f*(1/(1+TAUH_P));
+        %thth_f = 1;
         %rtrt_f = 1/BBETA-1;
         chch_f = GGAMMA*ltlt_f;
         cfcf_f = (1-GGAMMA)*ltlt_f;
@@ -1022,7 +1029,3 @@ end;
     xlabel('Rigidez precio');
     ylabel('Rigidez salario');
 @#endif
-
-
-
-
