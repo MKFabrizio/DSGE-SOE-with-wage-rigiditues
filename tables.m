@@ -20,14 +20,14 @@ GGAMMAST   = GGAMMA;
 MMBAR      = 1;
 OOMEGA     = 500;
 SSIGMA     = 1;
-EPSH       = 2; % (1-3) CO:1
-EPSF       = 2; % (1-3) CO:1
+EPSH       = 1; % (1-3) CO:1
+EPSF       = 1; % (1-3) CO:1
 MMU        = 1.1;
 TAUH       = (EPS*GGAMMA - EPS + 1)/(EPS*GGAMMA);
 TAUH_W      = 0;
 TAUH_P      = 0;
 TTHETAH     = 0.75;
-TTHETAF     = 0;
+%TTHETAF     = 0;
 RRHOI      = 0;
 RHOA       = 0.74;
 RHOZ       = 0.6;
@@ -49,7 +49,7 @@ PHI_Y = 0.5;
 PHI_G   = 0;
 FXIR=0;
 EPSW= 6; %4.3; % ELasticity of substitution over varieties LABOR
-PPSI=1/3;
+PPSI=1;
 TTHETAHW = 0.75;
 
 	lambda_w = ((1-TTHETAHW)/TTHETAHW)*(1-BBETA*TTHETAHW)/(1+CCHI*EPSW);
@@ -87,11 +87,11 @@ h = waitbar(0,'Initializing waitbar...');
 PHI_PIH    = 2.78;
 %PHI_PIH_2    = 2.78;
 save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH PHI_PIH_2;
-dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=1 -DtaylorCPI=0  -DRez=0 -DXgap=1
+dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=1 -DtaylorCPI=0  -DRez=0 -DXgap=1 -Dsubsidy=1
 pause(1);
 PHI_PIH = x_opt_hat(1);
 save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH PHI_PIH_2;
-dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=1 -DtaylorCPI=0   -DRez=0 -DXgap=1
+dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=1 -DtaylorCPI=0   -DRez=0 -DXgap=1 -Dsubsidy=1
 save OC_TAYLOR0 oo_ M_;
 results_OC_TAYLOR(1:9,1)= 100*values_all;
 results_OC_TAYLOR(10,1)= (values_all(7)^2 + 0.25*values_all(4)^2)*100;
@@ -105,8 +105,8 @@ waitbar(c/100,h,sprintf('%d%% along...',c))
 PHI_PIH    = 2.78;
 
 save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TAUH TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH PHI_PIH_2;
-dynare nk_wr.mod -DCalvo=1 -Dlogutility=1 -Dosr=0 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DStrictCPI=1 -Dsubsidy=0 -DRez=0 -DXgap=1
-pause(1);
+dynare nk_wr.mod -DCalvo=1 -Dlogutility=1 -Dosr=0 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DStrictCPI=1 -Dsubsidy=0 -DRez=0 -DXgap=1 -Dsubsidy=1
+pause(1); 
 save OC_TAYLOR1 oo_ M_;
 results_OC_TAYLOR(1:9,2)= 100*values_all;
 results_OC_TAYLOR(10,2)= (values_all(7)^2 + 0.25*values_all(4)^2)*100;
@@ -120,11 +120,11 @@ waitbar(c/100,h,sprintf('%d%% along...',c))
 PHI_PIH    = 2.78;
 %PHI_PIH_2    = 2.78;
 save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH PHI_PIH_2;
-dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0  -DRez=1 -DXgap=1
+dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0  -DRez=1 -DXgap=1 -Dsubsidy=1
 pause(1);
 PHI_PIH = x_opt_hat(1);
 save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH PHI_PIH_2;
-dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0   -DRez=1 -DXgap=1
+dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0   -DRez=1 -DXgap=1 -Dsubsidy=1
 save OC_TAYLOR2 oo_ M_;
 results_OC_TAYLOR(1:9,3)= 100*values_all;
 results_OC_TAYLOR(10,3)= (values_all(7)^2 + 0.25*values_all(4)^2)*100;
@@ -138,11 +138,11 @@ waitbar(c/100,h,sprintf('%d%% along...',c))
 PHI_PIH    = 1.06;
 
 save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH;
-dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=1  -DRez=0 -DXgap=1
+dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=1  -DRez=0 -DXgap=1 -Dsubsidy=1
 pause(1);
 PHI_PIH = x_opt_hat(1);
 save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH;
-dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=1   -DRez=0 -DXgap=1
+dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=1   -DRez=0 -DXgap=1 -Dsubsidy=1
 save OC_TAYLOR3 oo_ M_;
 results_OC_TAYLOR(1:9,4)= 100*values_all;
 results_OC_TAYLOR(10,4)= (values_all(7)^2 + 0.25*values_all(4)^2)*100;
@@ -156,11 +156,11 @@ waitbar(c/100,h,sprintf('%d%% along...',c))
 PHI_PIH = 0;
 PHI_G = 1.1;
 save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH;
-dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0 -Dngdp=1   -DRez=0 -DXgap=1
+dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0 -Dngdp=1   -DRez=0 -DXgap=1 -Dsubsidy=1
 pause(1);
 PHI_G = x_opt_hat(1);
 save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH;
-dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0 -Dngdp=1   -DRez=0 -DXgap=1
+dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0 -Dngdp=1   -DRez=0 -DXgap=1 -Dsubsidy=1
 save OC_TAYLOR4 oo_ M_;
 results_OC_TAYLOR(1:9,5)= 100*values_all;
 results_OC_TAYLOR(10,5)= (values_all(7)^2 + 0.25*values_all(4)^2)*100;
@@ -173,11 +173,11 @@ waitbar(c/100,h,sprintf('%d%% along...',c))
 %E. Optimal Wage inflation taylor. OSR
 PHI_PIH    = 2.78;
 save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH;
-dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0 -DtaylorW=1 -DXgap=1
+dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0 -DtaylorW=1 -DXgap=1 -Dsubsidy=1
 pause(1);
 PHI_PIH = x_opt_hat(1);
 save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH;
-dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0 -DtaylorW=1  -DXgap=1
+dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0 -DtaylorW=1  -DXgap=1 -Dsubsidy=1
 save OC_TAYLOR5 oo_ M_;
 results_OC_TAYLOR(1:9,6)= 100*values_all;
 results_OC_TAYLOR(10,6)= (values_all(7)^2 + 0.25*values_all(4)^2)*100;
@@ -191,7 +191,7 @@ waitbar(c/100,h,sprintf('%d%% along...',c))
 PHI_Y = 0.16;
 
 save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH;
-dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0 -Dngdp=0 -DStrictPPI=0 -DStrictCPI=0 -DStrictG=0 -DXgap=1 -DOptimal=1
+dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0 -Dngdp=0 -DStrictPPI=0 -DStrictCPI=0 -DStrictG=0 -DXgap=1 -DOptimal=1 -Dsubsidy=1
 save OC_TAYLOR6 oo_ M_;
 results_OC_TAYLOR(1:9,7)= 100*values_all;
 results_OC_TAYLOR(10,7)= (values_all(7)^2 + 0.25*values_all(4)^2)*100;
@@ -220,11 +220,11 @@ for i= 1:8
     PHI_PIH    = 2.78;
     %PHI_PIH_2    = 2.78;
     save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH PHI_PIH_2 lambda lambda_w;
-    dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=1 -DtaylorCPI=0  -DRez=0 -DXgap=1
+    dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=1 -DtaylorCPI=0  -DRez=0 -DXgap=1 -Dsubsidy=1
     pause(1);
     PHI_PIH = x_opt_hat(1);
     save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH PHI_PIH_2 lambda lambda_w;
-    dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=1 -DtaylorCPI=0   -DRez=0 -DXgap=1
+    dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=1 -DtaylorCPI=0   -DRez=0 -DXgap=1 -Dsubsidy=1
     results_OSR_TAYLOR(1,i)= 100*values_all(8);
     results_adhoc(1,i) = (GGAMMA/2)*((1+CCHI)*values_all(4)^2 + (EPS/lambda)*values_all(7)^2 + (TTHETAHW/lambda_w)*values_all(6)^2)*100;
     results_bank(1,i) =  (values_all(7)^2 + (1/16)*values_all(4)^2)*100;
@@ -235,7 +235,7 @@ for i= 1:8
     
     %B. Strict CPI
     save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TAUH TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH PHI_PIH_2;
-    dynare nk_wr.mod -DCalvo=1 -Dlogutility=1 -Dosr=0 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DStrictCPI=1 -Dsubsidy=0 -DRez=0 -DXgap=1
+    dynare nk_wr.mod -DCalvo=1 -Dlogutility=1 -Dosr=0 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DStrictCPI=1 -Dsubsidy=0 -DRez=0 -DXgap=1 -Dsubsidy=1
     pause(1);
     results_OSR_TAYLOR(2,i)= 100*values_all(8);
     results_adhoc(2,i) = (GGAMMA/2)*((1+CCHI)*values_all(4)^2 + (EPS/lambda)*values_all(7)^2 + (TTHETAHW/lambda_w)*values_all(6)^2)*100;
@@ -246,11 +246,11 @@ for i= 1:8
     
     %  Classic Taylor
     save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH;
-    dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0  -DRez=1 -DXgap=1
+    dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0  -DRez=1 -DXgap=1 -Dsubsidy=1
     pause(1);
     PHI_PIH = x_opt_hat(1);
     save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH;
-    dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0   -DRez=1 -DXgap=1
+    dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0   -DRez=1 -DXgap=1 -Dsubsidy=1
     results_OSR_TAYLOR(3,i)= 100*values_all(8);
     results_adhoc(3,i) = (GGAMMA/2)*((1+CCHI)*values_all(4)^2 + (EPS/lambda)*values_all(7)^2 + (TTHETAHW/lambda_w)*values_all(6)^2)*100;
     results_bank(3,i) =  (values_all(7)^2 + (1/16)*values_all(4)^2)*100;
@@ -262,11 +262,11 @@ for i= 1:8
     PHI_PIH    = 1.06;
 
     save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH;
-    dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=1 -DXgap=1
+    dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=1 -DXgap=1 -Dsubsidy=1
     pause(1);
     PHI_PIH = x_opt_hat(1);
     save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH;
-    dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=1 -DXgap=1
+    dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=1 -DXgap=1 -Dsubsidy=1
     results_OSR_TAYLOR(4,i)= 100*values_all(8);
     results_adhoc(4,i) = (GGAMMA/2)*((1+CCHI)*values_all(4)^2 + (EPS/lambda)*values_all(7)^2 + (TTHETAHW/lambda_w)*values_all(6)^2)*100;
     results_bank(4,i) =  (values_all(7)^2 + (1/16)*values_all(4)^2)*100;
@@ -278,11 +278,11 @@ for i= 1:8
     PHI_PIH = 0;
     PHI_G = 1.1;
     save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH;
-    dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0 -Dngdp=1   -DRez=0  -DXgap=1
+    dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0 -Dngdp=1   -DRez=0  -DXgap=1 -Dsubsidy=1
     pause(1);
     PHI_G = x_opt_hat(1);
     save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH;
-    dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0 -Dngdp=1   -DRez=0 -DXgap=1
+    dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0 -Dngdp=1   -DRez=0 -DXgap=1 -Dsubsidy=1
     results_OSR_TAYLOR(5,i)= 100*values_all(8);
     results_adhoc(5,i) = (GGAMMA/2)*((1+CCHI)*values_all(4)^2 + (EPS/lambda)*values_all(7)^2 + (TTHETAHW/lambda_w)*values_all(6)^2)*100;
     results_bank(5,i) =  (values_all(7)^2 + (1/16)*values_all(4)^2)*100;
@@ -293,11 +293,11 @@ for i= 1:8
     %E. Optimal Wage inflation taylor. OSR
     PHI_PIH    = 2.78;
     save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH;
-    dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0 -DtaylorW=1  -DXgap=1
+    dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0 -DtaylorW=1  -DXgap=1 -Dsubsidy=1
     pause(1);
     PHI_PIH = x_opt_hat(1);
     save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH;
-    dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0 -DtaylorW=1   -DXgap=1
+    dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0 -DtaylorW=1   -DXgap=1 -Dsubsidy=1
     results_OSR_TAYLOR(6,i)= 100*values_all(8);
     results_adhoc(6,i) = (GGAMMA/2)*((1+CCHI)*values_all(4)^2 + (EPS/lambda)*values_all(7)^2 + (TTHETAHW/lambda_w)*values_all(6)^2)*100;
     results_bank(6,i) =  (values_all(7)^2 + (1/16)*values_all(4)^2)*100;
@@ -316,7 +316,7 @@ for i= 1:8
         PHI_Y = 0.16;
 
         save PARAM_M1 BBETA GGAMMA CCHI EPS EPSH EPSF GGAMMAST MMBAR OOMEGA SSIGMA EPSW RHOA PPSI TTHETAHW RHONST STD_PSI STD_A STD_Z TAUH_P TAUH_W FXIR GGAMMAC TTHETAH PHI_PIH;
-        dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0 -Dngdp=0 -DStrictPPI=0 -DStrictCPI=0 -DStrictG=0 -DXgap=1 -DOptimal=1
+        dynare nk_wr -DCalvo=1 -Dlogutility=1 -Dosr=1 -Dramsey_policy=0 -Ddixit=0 -DtaylorPPI=0 -DtaylorCPI=0 -Dngdp=0 -DStrictPPI=0 -DStrictCPI=0 -DStrictG=0 -DXgap=1 -DOptimal=1 -Dsubsidy=1
         results_OSR_TAYLOR(7,i)= 100*values_all(8);
         results_adhoc(7,i) = (GGAMMA/2)*((1+CCHI)*values_all(4)^2 + (EPS/lambda)*values_all(7)^2 + (TTHETAHW/lambda_w)*values_all(6)^2)*100;
         results_bank(7,i) =  (values_all(7)^2 + (1/16)*values_all(4)^2)*100;
@@ -740,3 +740,4 @@ xlabel('Rigidez salario (\theta_w)');
     xlabel('Rigidez precio');
     ylabel('Rigidez salario');
     colormap cool;
+   
